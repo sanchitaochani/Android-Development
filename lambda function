@@ -1,0 +1,6 @@
+myButton.setOnClickListener (view -> {
+            if (userName.getText().length() == 0
+                    || password.getText().length() == 0) {
+                Toast.makeText(MainActivity.this, R.string.input, Toast.LENGTH_LONG).show();
+            }
+            });
