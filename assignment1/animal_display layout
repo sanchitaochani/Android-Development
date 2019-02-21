@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/img_bird"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:src="@drawable/bird"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"/>
+
+    <TextView
+        android:id="@+id/bird_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/bird_description"
+        android:layout_marginStart="5dp"
+        android:layout_toEndOf="@id/img_bird"
+        android:layout_alignTop="@id/img_bird"
+        android:layout_alignBottom="@id/img_bird"
+        android:gravity="center_vertical"/>
+
+    <ImageView
+        android:id="@+id/img_cat"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:src="@drawable/cat"
+        android:layout_below="@id/img_bird"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="30dp"/>
+
+    <TextView
+        android:id="@+id/cat_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/cat_description"
+        android:layout_toEndOf="@id/img_cat"
+        android:layout_alignTop="@id/img_cat"
+        android:layout_alignBottom="@id/img_cat"
+        android:layout_marginStart="5dp"
+        android:gravity="center_vertical"/>
+
+    <ImageView
+        android:id="@+id/img_dog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/img_cat"
+        android:src="@drawable/dog"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="30dp"/>
+
+    <TextView
+        android:id="@+id/dog_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/dog_description"
+        android:layout_toEndOf="@id/img_dog"
+        android:layout_alignTop="@id/img_dog"
+        android:layout_alignBottom="@id/img_dog"
+        android:layout_marginStart="5dp"
+        android:gravity="center_vertical"/>
+
+    <Button
+        android:id="@+id/button_rotate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/img_dog"
+        android:text="@string/rotate"
+        android:layout_margin="20dp"/>
+
+    <Button
+        android:id="@+id/button_flip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/flip"
+        android:layout_toEndOf="@id/button_rotate"
+        android:layout_alignTop="@id/button_rotate"
+        />
+
+
+</RelativeLayout>
