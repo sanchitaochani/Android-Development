@@ -1,0 +1,190 @@
+package hw.appdev.example.android.assignment1;
+
+import android.media.Image;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+public class MainActivity extends AppCompatActivity {
+
+    ImageView button_bird, button_cat, button_dog;
+    TextView bird_desc, cat_desc, dog_desc;
+    Button rotate_on_click, flip_on_click;
+    boolean id1, id2, id3;
+    ImageView move_right, move_left, move_up, move_down, move_to_original;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.main);
+
+        button_bird=findViewById(R.id.img_bird);
+        button_cat=findViewById(R.id.img_cat);
+        button_dog=findViewById(R.id.img_dog);
+
+        bird_desc = findViewById(R.id.bird_text);
+        cat_desc = findViewById(R.id.cat_text);
+        dog_desc=findViewById(R.id.dog_text);
+
+        rotate_on_click = findViewById(R.id.button_rotate);
+        flip_on_click = findViewById(R.id.button_flip);
+
+        move_down = findViewById(R.id.down_arrow);
+        move_right = findViewById(R.id.right_arrow);
+        move_left = findViewById(R.id.left_arrow);
+        move_up = findViewById(R.id.up_arrow);
+        move_to_original = findViewById(R.id.center_key);
+
+        final float bird_original_position_x = button_bird.getTranslationX();
+        final float bird_original_position_y = button_bird.getTranslationY();
+        final float cat_original_position_x = button_bird.getTranslationX();
+        final float cat_original_position_y = button_bird.getTranslationY();
+        final float dog_original_position_x = button_bird.getTranslationX();
+        final float dog_original_position_y = button_bird.getTranslationY();
+
+        button_bird.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                button_bird.setSelected(true);
+                button_dog.setSelected(false);
+                button_cat.setSelected(false);
+                id1 = true;
+                bird_desc.setVisibility(View.VISIBLE);
+                cat_desc.setVisibility(View.INVISIBLE);
+                dog_desc.setVisibility(View.INVISIBLE);
+            }
+        });
+        button_cat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                button_cat.setSelected(true);
+                button_bird.setSelected(false);
+                button_dog.setSelected(false);
+                id2 = true;
+                bird_desc.setVisibility(View.INVISIBLE);
+                cat_desc.setVisibility(View.VISIBLE);
+                dog_desc.setVisibility(View.INVISIBLE);
+            }
+        });
+        button_dog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                button_dog.setSelected(true);
+                button_cat.setSelected(false);
+                button_bird.setSelected(false);
+                id3 = true;
+                bird_desc.setVisibility(View.INVISIBLE);
+                cat_desc.setVisibility(View.INVISIBLE);
+                dog_desc.setVisibility(View.VISIBLE);
+            }
+        });
+
+        rotate_on_click.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (id1 == true)
+                    button_bird.setRotation(button_bird.getRotation()+90);
+                else if (id2 == true)
+                    button_cat.setRotation(button_cat.getRotation()+90);
+                else if (id3 == true)
+                    button_dog.setRotation(button_dog.getRotation()+90);
+                else
+                    Toast.makeText(MainActivity.this, R.string.please_select_an_animal_image_before_choosing_an_image_modification, Toast.LENGTH_LONG).show();
+            }
+        });
+
+        final int scale_value = -1;
+        flip_on_click.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (id1 == true)
+                    button_bird.setScaleX(button_bird.getScaleX()*scale_value);
+                else if (id2 == true)
+                    button_cat.setScaleX(button_cat.getScaleX()*scale_value);
+                else if (id3 == true)
+                    button_dog.setScaleX(button_bird.getScaleX()*scale_value);
+                else
+                    Toast.makeText(MainActivity.this, R.string.please_select_an_animal_image_before_choosing_an_image_modification, Toast.LENGTH_LONG).show();
+            }
+        });
+
+        move_right.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (id1 == true)
+                    button_bird.setTranslationX(button_bird.getTranslationX()+10);
+                else if (id2 == true)
+                    button_cat.setTranslationX(button_cat.getTranslationX()+10);
+                else if (id3 == true)
+                    button_dog.setTranslationX(button_dog.getTranslationX()+10);
+                else
+                    Toast.makeText(MainActivity.this, R.string.please_select_an_animal_image_before_choosing_an_image_modification, Toast.LENGTH_LONG).show();
+            }
+        });
+        move_left.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (id1 == true)
+                    button_bird.setTranslationX(button_bird.getTranslationX()-10);
+                else if (id2 == true)
+                    button_cat.setTranslationX(button_cat.getTranslationX()-10);
+                else if (id3 == true)
+                    button_dog.setTranslationX(button_dog.getTranslationX()-10);
+                else
+                    Toast.makeText(MainActivity.this, R.string.please_select_an_animal_image_before_choosing_an_image_modification, Toast.LENGTH_LONG).show();
+            }
+        });
+        move_up.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (id1 == true)
+                    button_bird.setTranslationY(button_bird.getTranslationY()-10);
+                else if (id2 == true)
+                    button_cat.setTranslationY(button_cat.getTranslationY()-10);
+                else if (id3 == true)
+                    button_dog.setTranslationY(button_dog.getTranslationY()-10);
+                else
+                    Toast.makeText(MainActivity.this, R.string.please_select_an_animal_image_before_choosing_an_image_modification, Toast.LENGTH_LONG).show();
+            }
+        });
+        move_down.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (id1 == true)
+                    button_bird.setTranslationY(button_bird.getTranslationY()+10);
+                else if (id2 == true)
+                    button_cat.setTranslationY(button_cat.getTranslationY()+10);
+                else if (id3 == true)
+                    button_dog.setTranslationY(button_dog.getTranslationY()+10);
+                else
+                    Toast.makeText(MainActivity.this, R.string.please_select_an_animal_image_before_choosing_an_image_modification, Toast.LENGTH_LONG).show();
+            }
+        });
+        move_to_original.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (id1 == true) {
+                    button_bird.setTranslationX(bird_original_position_x);
+                    button_bird.setTranslationY(bird_original_position_y);
+                }
+                if (id2 == true) {
+                    button_cat.setTranslationX(cat_original_position_x);
+                    button_cat.setTranslationY(cat_original_position_y);
+                }
+                if (id3 == true) {
+                    button_dog.setTranslationX(dog_original_position_x);
+                    button_dog.setTranslationY(dog_original_position_y);
+                }
+            }
+        });
+
+
+    }
+}
