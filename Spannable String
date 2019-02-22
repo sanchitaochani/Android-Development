@@ -1,0 +1,4 @@
+SpannableString span_string = new SpannableString(mTextView.getText());
+ForegroundColorSpan colorSpan = new ForegroundColorSpan(Color.BLUE);
+span-string.setSpan(colorSpan, 2,5,00;
+mTextView.setText(span_string);
