@@ -1,0 +1,140 @@
+// List Data
+
+package appdev.example.android.androidclassthree;
+
+public class ListData {
+    public int mColor;
+    public String mString;
+
+    public ListData(int color, String string) {
+        mColor = color;
+        mString = string;
+    }
+}
+
+// ExampleAdapter
+
+package appdev.example.android.androidclassthree;
+
+import android.content.Context;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.TextView;
+
+import java.util.List;
+
+public class ExampleAdapter extends BaseAdapter {
+
+    Context mContext;
+    List<ListData> mListData;
+
+    public ExampleAdapter(Context context, List<ListData> myData) {
+        mContext = context;
+        mListData = myData;
+    }
+
+    @Override
+    public int getCount() {
+        return mListData.size(); //returns the no. of items in the list
+    }
+
+    @Override
+    public Object getItem(int position) {
+        return mListData.get(position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return 0;
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        if (convertView == null) {
+            convertView = View.inflate(mContext, R.layout.list_row, null);
+
+            View colorView = convertView.findViewById(R.id.color_block);
+            TextView textView = convertView.findViewById(R.id.text);
+            ViewHolder viewHolder = new ViewHolder(colorView, textView);
+            convertView.setTag(viewHolder);
+        }
+        ListData data = (ListData) getItem(position);
+
+        ViewHolder viewHolder = (ViewHolder) convertView.getTag(); //gets the tag of VH
+        //reference to the text and color stored in this view
+
+        viewHolder.mColorView.setBackgroundColor(data.mColor);
+        viewHolder.mTextView.setText(data.mString);
+
+        convertView.findViewById(R.id.color_block).setBackgroundColor(data.mColor);
+        ((TextView)convertView.findViewById(R.id.text)).setText(data.mString);
+
+        return convertView;
+    }
+
+    public static class ViewHolder {
+        public View mColorView;
+        public TextView mTextView;
+
+        public ViewHolder(View colorView, TextView textView) {
+            mColorView = colorView;
+            mTextView = textView;
+        }
+    }
+
+}
+
+
+// Main Activity
+
+package appdev.example.android.androidclassthree;
+
+import android.graphics.Color;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.Toast;
+import android.util.Log;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class MainActivity extends AppCompatActivity {
+
+    ListView mListView;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.list);
+        mListView = findViewById(R.id.list);
+
+        List<ListData> listData = new ArrayList<>();
+        listData.add(new ListData(Color.BLACK, "First Item"));
+        listData.add(new ListData(Color.CYAN, "Second Item"));
+        listData.add(new ListData(Color.RED, "Third Item"));
+        listData.add(new ListData(Color.GREEN, "Fourth Item"));
+        listData.add(new ListData(Color.YELLOW, "Fifth Item"));
+        listData.add(new ListData(Color.GRAY, "Sixth Item"));
+        listData.add(new ListData(Color.CYAN, "Seventh Item"));
+        listData.add(new ListData(Color.MAGENTA, "Eighth Item"));
+        listData.add(new ListData(Color.DKGRAY, "Ninth Item"));
+        listData.add(new ListData(Color.parseColor("#3399ff"), "Tenth Item"));
+
+        ExampleAdapter adapter = new ExampleAdapter(this, listData);
+        mListView.setAdapter(adapter);
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+            Toast.makeText(MainActivity.this, "The row at position" + position + "was clicked on", Toast.LENGTH_LONG).show();
+            }
+
+        });
+    }
+
+}
