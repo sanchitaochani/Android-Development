@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1"
+    android:orientation="vertical">
+
+    <ListView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:cacheColorHint="@android:color/transparent"
+        android:listSelector="@android:color/transparent"
+        android:layout_weight="0.75">
+
+    </ListView>
+
+    <RelativeLayout
+        android:id="@+id/edit_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.25">
+
+        <Button
+            android:id="@+id/button_rotate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/rotate" />
+
+        <Button
+            android:id="@+id/button_flip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/flip"
+            android:layout_toEndOf="@id/button_rotate" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:layout_marginBottom="5dp"
+            android:layout_alignParentEnd="true">
+            <ImageView
+                android:id="@+id/left"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginEnd="3dp"
+                android:src="@drawable/ic_arrow_back_black_24dp"
+                android:layout_centerVertical="true"/>
+            <ImageView
+                android:id="@+id/up"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginEnd="3dp"
+                android:layout_toEndOf="@id/left"
+                android:layout_above="@id/left"
+                android:src="@drawable/ic_arrow_upward_black_24dp" />
+            <ImageView
+                android:id="@+id/down"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_toEndOf="@id/left"
+                android:layout_below="@id/left"
+                android:src="@drawable/ic_arrow_downward_black_24dp"/>
+            <ImageView
+                android:id="@+id/right"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_toEndOf="@id/up"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_arrow_forward_black_24dp" />
+            <ImageView
+                android:id="@+id/center"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/ic_filter_center_focus_black_24dp" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>
