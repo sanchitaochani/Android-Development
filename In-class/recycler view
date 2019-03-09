@@ -1,0 +1,130 @@
+package appdev.example.android.androidclassthree;
+
+import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import java.util.List;
+
+public class RecyclerViewAdapter extends RecyclerView.Adapter {
+    Context mContext;
+    List<ListData> mListData;
+    View.OnClickListener mRowClickListener;
+
+    public RecyclerViewAdapter(Context context, List<ListData> listData, View.OnClickListener rowClickListener) {
+        mContext = context;
+        mListData = listData;
+    }
+
+
+    @NonNull
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        View view = View.inflate(mContext, R.layout.list_row, null);
+        return new ExampleViewHolder(view, mRowClickListener);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
+        ExampleViewHolder exampleHolder = (ExampleViewHolder)viewHolder;
+        ListData data = getItem(i);
+        exampleHolder.mTextView.setText(data.mString);
+        exampleHolder.mColorView.setBackgroundColor(data.mColor);
+        exampleHolder.itemView.setTag(i);
+    }
+
+    public ListData getItem(int position) {
+        return mListData.get(position);
+    }
+    @Override
+    public int getItemCount() {
+        return mListData.size();
+    }
+
+    private class ExampleViewHolder extends RecyclerView.ViewHolder {
+
+        public View mColorView;
+        public TextView mTextView;
+
+        public ExampleViewHolder(@NonNull View itemView, View.OnClickListener rowClickListener) {
+            super(itemView);
+            this.itemView.setOnClickListener(rowClickListener);
+            mColorView = itemView.findViewById(R.id.color_block);
+            mTextView = itemView.findViewById(R.id.text);
+
+        }
+
+    }
+}
+
+
+
+package appdev.example.android.androidclassthree;
+
+import android.graphics.Color;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.Toast;
+import android.util.Log;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class MainActivity extends AppCompatActivity {
+
+    //ListView mListView;
+    RecyclerView mRecyclerView;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        //setContentView(R.layout.list);
+        //mListView = findViewById(R.id.list);
+
+        setContentView(R.layout.recyclerview);
+        mRecyclerView = findViewById(R.id.recyclerview);
+
+        List<ListData> listData = new ArrayList<>();
+        listData.add(new ListData(Color.BLACK, "First Item"));
+        listData.add(new ListData(Color.CYAN, "Second Item"));
+        listData.add(new ListData(Color.RED, "Third Item"));
+        listData.add(new ListData(Color.GREEN, "Fourth Item"));
+        listData.add(new ListData(Color.YELLOW, "Fifth Item"));
+        listData.add(new ListData(Color.GRAY, "Sixth Item"));
+        listData.add(new ListData(Color.CYAN, "Seventh Item"));
+        listData.add(new ListData(Color.MAGENTA, "Eighth Item"));
+        listData.add(new ListData(Color.DKGRAY, "Ninth Item"));
+        listData.add(new ListData(Color.parseColor("#3399ff"), "Tenth Item"));
+        listData.add(new ListData(Color.DKGRAY, "Eleventh Item"));
+        listData.add(new ListData(Color.DKGRAY, "Twelfth Item"));
+        listData.add(new ListData(Color.DKGRAY, "Thirteenth Item"));
+
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, listData,
+                v -> {
+                    int position = (int) v.getTag();
+                    Toast.makeText(MainActivity.this, "The row at position "+position+" was clicked", Toast.LENGTH_LONG).show();
+                });
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayout.VERTICAL, false));
+        mRecyclerView.setAdapter(adapter);
+        //mListView.setAdapter(adapter);
+        //mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+           // @Override
+          //  public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+          //  Toast.makeText(MainActivity.this, "The row at position" + position + "was clicked on", Toast.LENGTH_LONG).show();
+          //  }
+
+        //});
+    }
+
+}
