@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">CS639SpringHW3</string>
+    <string name="date">Date:</string>
+    <string name="student_count">Student Count:</string>
+    <string name="addData">Add Data</string>
+    <string name="clearData">Clear Data</string>
+    <string name="show_lines">Show Lines</string>
+    <string name="highlight">Highlight Integral</string>
+    <string name="minNumber">5</string>
+    <string name="maxNumber">10</string>
+    <string name="please_select_valid_date_and_count">Please select a valid date(mm/dd) and a valid student count(Numbers only).</string>
+    <string name="please_select_valid_count">Please enter a valid number.</string>
+</resources>
