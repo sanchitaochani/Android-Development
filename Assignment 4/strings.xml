@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Assignment 4</string>
+    <string name="example">Example:</string>
+    <string name="create_your_own">Create Your Own</string>
+    <string name="color">Color:</string>
+    <string name="add">Add</string>
+    <string name="radius">Radius:</string>
+    <string name="speed">Speed:</string>
+</resources>
