@@ -22,6 +22,11 @@ public class CircleAnimationView extends View {
     int mDistance = 0;
     boolean reachedEnd = false;
     boolean reachedStart = true;
+    boolean randomCheck = false;
+
+    public CircleAnimationView(Context context) {
+        super(context);
+    }
 
     public CircleAnimationView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -34,6 +39,18 @@ public class CircleAnimationView extends View {
         array.recycle();
         initPaints();
 
+    }
+
+    public CircleAnimationView(Context context, @Nullable AttributeSet attrs, Circle customCircle) {
+        super(context, attrs);
+
+        TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.CircleAnimationView);
+        mColor = array.getColor(R.styleable.CircleAnimationView_circleColor, Color.BLACK);
+        mRadius = array.getDimension(Circle.getCircleRadius(), dpToPx(20));
+        Log.i("Second constructor", "Radius"+mRadius);
+        mSpeed = array.getDimension(Circle.getCircleSpeed(), dpToPx(30));
+        Log.i("Second constructor", "Speed"+mSpeed);
+        array.recycle();
     }
 
     public void initPaints() {
@@ -49,7 +66,8 @@ public class CircleAnimationView extends View {
 
         int width = canvas.getWidth()-15; //padding
         int height = canvas.getHeight()-10; //padding
-
+        if (randomCheck)
+            canvas.drawCircle(220, 33, mRadius, mCircle);
         if (reachedStart) {
             moveCircleX(canvas, width, height);
             if (mDistance>=width-mRadius) {
@@ -64,6 +82,7 @@ public class CircleAnimationView extends View {
                 reachedStart = true;
             }
         }
+
     }
 
     private void moveCircleY(Canvas canvas, int width, int height) {
@@ -86,5 +105,29 @@ public class CircleAnimationView extends View {
     }
     public static int dpToPx(int dpValue) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dpValue, Resources.getSystem().getDisplayMetrics());
+    }
+
+
+    public void reDraw(int circleRadius, int circleSpeed, int circleColor) {
+
+        mSpeed = circleSpeed;
+        mRadius = circleRadius;
+        mColor = circleColor;
+        Log.i("Sup","radius?"+mRadius);
+        randomCheck = true;
+        //ucheckLayoutParams();
+        invalidate();
+    }
+
+    public void setRadius(int radius) {
+        mRadius = radius;
+    }
+
+    public void setColor(int color) {
+        mColor = color;
+    }
+
+    public void setSpeed(int speed) {
+        mSpeed = speed;
     }
 }
