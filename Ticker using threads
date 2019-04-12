@@ -1,0 +1,63 @@
+package hw.appdev.example.android.threadexample;
+
+import android.os.Handler;
+import android.os.HandlerThread;
+import android.os.Looper;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.util.Log;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
+
+public class MainActivity extends AppCompatActivity {
+
+    HandlerThread mHandlerThread;
+    Handler mHandler;
+    Handler mMainHandler;
+    TextView mCountView;
+    int mCount=0;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        mCountView = findViewById(R.id.count);
+        mCountView.setText(mCount+" ");
+
+        mHandlerThread = new HandlerThread("Example Thread");
+        mHandlerThread.start();
+        mHandler = new Handler(mHandlerThread.getLooper());
+        mMainHandler = new Handler(Looper.getMainLooper());
+        sendRunnableAndRepeat();
+       /* Runnable run = () -> {
+                for (long i = 0; i< 100L; i++) {
+
+                    Log.i("THREAD", "Loop finished");
+                }
+        };
+        Thread thread = new Thread(run);
+        thread.start();*/
+
+        //getWindow().getDecorView().postDelayed(run, 100);
+    }
+
+    public void sendRunnableAndRepeat() {
+        mHandler.postDelayed(() -> {
+            mCount++;
+            mMainHandler.post(() -> {
+                mCountView.setText(mCount+"");
+            });
+            sendRunnableAndRepeat();
+        }, 2000);
+
+        /*mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mCount++;
+                mCountView.setText(mCount + " ");
+                Log.d("Thread_test", "Inside the background thread");
+            }
+        }, 2000);*/
+    }
+}
