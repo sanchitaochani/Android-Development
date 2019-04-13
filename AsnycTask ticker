@@ -1,0 +1,55 @@
+package hw.appdev.example.android.threadexample;
+
+import android.os.AsyncTask;
+import android.os.Handler;
+import android.os.HandlerThread;
+import android.os.Looper;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.util.Log;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
+
+public class MainActivity extends AppCompatActivity {
+
+    TextView mCountView;
+    int mCount;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        mCountView = findViewById(R.id.count);
+        //mCountView.setText(mCount);
+
+        initAndExecuteAsyncTask(0, 10000);
+
+    }
+
+    private void initAndExecuteAsyncTask(int start, int end) {
+        AsyncTask<Integer, Void, Integer> myAsyncTask = new AsyncTask<Integer, Void, Integer>() {
+            @Override
+            protected Integer doInBackground(Integer... integers) {
+                int LoopStart = integers[0];
+                int LoopEnd = integers[1];
+                int sum = 0;
+                for (int i=LoopStart; i<LoopEnd; i++) {
+                    sum = sum + i;
+                }
+                return sum;
+            }
+
+
+            @Override
+            protected void onPostExecute(Integer result) {
+                mCountView.setText(result.toString());
+            }
+        };
+        myAsyncTask.execute(start, end);
+    }
+
+
+
+
+}
