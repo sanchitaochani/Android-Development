@@ -1,0 +1,65 @@
+package hw.appdev.example.android.librariesexample;
+
+import android.annotation.SuppressLint;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.widget.ImageView;
+
+import com.squareup.picasso.Picasso;
+
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+
+public class MainActivity extends AppCompatActivity {
+
+    String mImageResource = "https://foodrevolution.org/wp-content/uploads/2018/04/blog-featured-diabetes-20180406-1330.jpg";
+    ImageView mImageView;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        mImageView = findViewById(R.id.image);
+        downloadImageModernly();
+    }
+
+    /*private void downloadImageLikeACaveperson() {
+        @SuppressLint("StaticFieldLeak")
+        AsyncTask<String, Void, Bitmap> myTask = new AsyncTask<String, Void, Bitmap>() {
+            @Override
+            protected Bitmap doInBackground(String... strings) {
+                try {
+                    URL url = new URL(mImageResource);
+                    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+                    InputStream inputStream;
+
+                    if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                        inputStream = connection.getInputStream();
+                        return BitmapFactory.decodeStream(inputStream);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Bitmap bitmap) {
+                super.onPostExecute(bitmap);
+                mImageView.setImageBitmap(bitmap);
+            }
+        }.execute(mImageResource);
+
+
+    }*/
+
+    private void downloadImageModernly() {
+        Picasso.get().load(mImageResource).fit().centerCrop().into(mImageView);
+    }
+}
